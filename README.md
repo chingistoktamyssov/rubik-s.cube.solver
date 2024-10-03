@@ -1,0 +1,1 @@
+My progress making a Rubik's cube solver for my computer engineering class, TEJ4M.
