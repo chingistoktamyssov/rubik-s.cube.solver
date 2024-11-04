@@ -1,0 +1,32 @@
+.cube-layout button {
+    height: 30px;
+    width: 30px;
+}
+
+.top-row , .bot-row{
+    margin-left: 102px;
+}
+
+.white-center {
+    background-color: white;
+}
+
+.green-center {
+    background-color: green;
+}
+
+.red-center {
+    background-color: red;
+}
+
+.blue-center {
+    background-color: blue;
+}
+
+.orange-center {
+    background-color: orange;
+}
+
+.yellow-center {
+    background-color: yellow;
+}

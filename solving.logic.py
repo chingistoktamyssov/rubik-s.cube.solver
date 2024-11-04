@@ -42,4 +42,5 @@ class piece:
 
 class cube:
 
-    def __init__(self)
+    def __init__(self):
+        
