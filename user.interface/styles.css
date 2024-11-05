@@ -3,6 +3,10 @@
     width: 30px;
 }
 
+.cube-layout button:hover {
+    background-color: black;
+}
+
 .top-row , .bot-row{
     margin-left: 102px;
 }
