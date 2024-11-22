@@ -8,7 +8,8 @@ a list of things i'm learning as i go
 - actually implementing what i learned from object oriented programming e.g. classes
 - actually implementing my cadding skills on stuff i'll print
 - working with nema17 and a a4988 driver
-- soldering 
+- soldering
+- crimping wires
 - designing a schematic
 - building process, measuring, drawing diagrams, making protytpes, failures --> improving
 - assembling & logistics: physically putting it all together, knowing where things go
