@@ -1,83 +1,110 @@
-<!DOCTYPE>
-<html>
-    <head>
-        <title>cube layout</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <div>
-            Rubik's Cube Solver shitty user interface
-        </div>
-        <div class="cube-layout">
-            <div class="top-row">
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button" style="background-color: white"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubik's Cube Layout Color Picker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Color options at the top of the page -->
+    <div class="color-picker">
+        <div class="color-option" id="white" style="background-color: white;"></div>
+        <div class="color-option" id="red" style="background-color: red;"></div>
+        <div class="color-option" id="blue" style="background-color: blue;"></div>
+        <div class="color-option" id="green" style="background-color: green;"></div>
+        <div class="color-option" id="orange" style="background-color: orange;"></div>
+        <div class="color-option" id="yellow" style="background-color: yellow;"></div>
+    </div>
+
+    <!-- Rubik's cube button layout -->
+    <div class="rubiks-cube-layout">
+        <div class="top-face">
+            <div class="cube-row">
+                <button class="color-button" id="button1"></button>
+                <button class="color-button" id="button2"></button>
+                <button class="color-button" id="button3"></button>
             </div>
-            <div class="mid-row">
-                <div class="left-column">
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button style="background-color: green"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                </div>
-                <div class="mid-1-column">
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button style="background-color: red"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                </div>
-                <div class="mid-2-column">
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button style="background-color: blue"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                </div>
-                <div class="right-column">
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button style="background-color: orange"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                    <button class="layout-button"></button>
-                </div>
+            <div class="cube-row">
+                <button class="color-button" id="button4"></button>
+                <button class="white-face" id="button5"></button>
+                <button class="color-button" id="button6"></button>
             </div>
-            <div class="bot-row">
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button style="background-color: yellow"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
-                <button class="layout-button"></button>
+            <div class="cube-row">
+                <button class="color-button" id="button7"></button>
+                <button class="color-button" id="button8"></button>
+                <button class="color-button" id="button9"></button>
             </div>
         </div>
 
-    </body>
+        <div class="middle-section">
+            <!-- Spaced columns -->
+            <div class="cube-row">
+                <button class="color-button" id="button10"></button>
+                <button class="color-button" id="button11"></button>
+                <button class="color-button spaced" id="button12"></button>
+                <button class="color-button" id="button13"></button>
+                <button class="color-button" id="button14"></button>
+                <button class="color-button spaced" id="button15"></button>
+                <button class="color-button" id="button16"></button>
+                <button class="color-button" id="button17"></button>
+                <button class="color-button spaced" id="button18"></button>
+                <button class="color-button" id="button19"></button>
+                <button class="color-button" id="button20"></button>
+                <button class="color-button" id="button21"></button>
+            </div>
+
+            <div class="cube-row">
+                <button class="color-button" id="button22"></button>
+                <button class="green-face" id="button23"></button>
+                <button class="color-button spaced" id="button24"></button>
+                <button class="color-button" id="button25"></button>
+                <button class="red-face" id="button26"></button>
+                <button class="color-button spaced" id="button27"></button>
+                <button class="color-button" id="button28"></button>
+                <button class="blue-face" id="button29"></button>
+                <button class="color-button spaced" id="button30"></button>
+                <button class="color-button" id="button31"></button>
+                <button class="orange-face" id="button32"></button>
+                <button class="color-button" id="button33"></button>
+            </div>
+
+            <div class="cube-row">
+                <button class="color-button" id="button34"></button>
+                <button class="color-button" id="button35"></button>
+                <button class="color-button spaced" id="button36"></button>
+                <button class="color-button" id="button37"></button>
+                <button class="color-button" id="button38"></button>
+                <button class="color-button spaced" id="button39"></button>
+                <button class="color-button" id="button40"></button>
+                <button class="color-button" id="button41"></button>
+                <button class="color-button spaced" id="button42"></button>
+                <button class="color-button" id="button43"></button>
+                <button class="color-button" id="button44"></button>
+                <button class="color-button" id="button45"></button>
+            </div>
+        </div>
+
+        <div class="bottom-face">
+            <div class="cube-row">
+                <button class="color-button" id="button46"></button>
+                <button class="color-button" id="button47"></button>
+                <button class="color-button" id="button48"></button>
+            </div>
+            <div class="cube-row">
+                <button class="color-button" id="button49"></button>
+                <button class="yellow-face" id="button50"></button>
+                <button class="color-button" id="button51"></button>
+            </div>
+            <div class="cube-row">
+                <button class="color-button" id="button52"></button>
+                <button class="color-button" id="button53"></button>
+                <button class="color-button" id="button54"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>

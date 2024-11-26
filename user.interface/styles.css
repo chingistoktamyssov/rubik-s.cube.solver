@@ -1,39 +1,100 @@
-/* CUBE LAYOUT FORMATTING */
-.top-row, .left-column, .mid-1-column, .mid-2-column, .right-column, .bot-row {
-    display: grid;
-    grid-template-columns: 30px 30px 30px;
-    column-gap: 2px;
-    row-gap: 2px;
+/* Style for the color options */
+.color-picker {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
 }
 
-.mid-row {
-    display: grid;
-    margin-top: 23px;
-    margin-bottom: 23px;
-    grid-template-columns: 120px 120px 120px 120px;
-    column-gap: 5px;
-    row-gap: 5px;
+.color-option {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid black;
 }
 
-.top-row, .bot-row {
-    margin-left: 125px;
+/* Cube layout styles */
+.rubiks-cube-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-
-/* PIECE BUTTON */
-.cube-layout .layout-button {
-    height: 30px;
-    width: 30px;
-    border-radius: 5px;
-    position: relative
+.cube-row {
+    display: flex;
+    justify-content: space-around;
+    margin: 0px;
 }
 
-.cube-layout .layout-button .color-options {
-    position: relative;
-    background-color: gray;
-    opacity: 0;
+.side-face, .top-face, .bottom-face {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
 }
 
-.cube-layout .layout-button:hover .color-options{
-    opacity: 1;
+.top-face, .bottom-face {
+    margin-left: -155px;
+}
+
+.color-button {
+    width: 50px;
+    height: 50px;
+    background-color: lightgray;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+/* Apply margin to specific columns */
+.middle-section .cube-row button:nth-child(4),
+.middle-section .cube-row button:nth-child(7),
+.middle-section .cube-row button:nth-child(10) {
+    margin-left: 15px; /* Adjust this value to control the spacing */
+}
+
+.white-face {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: white;
+}
+
+.red-face {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: red;
+}
+
+.green-face {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: green;
+}
+
+.blue-face {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: blue;
+}
+
+.orange-face {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: orange;
+}
+
+.yellow-face {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: yellow;
 }
