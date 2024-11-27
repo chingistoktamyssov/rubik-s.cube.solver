@@ -46,6 +46,8 @@ function setupButtonListeners() {
                 // Update the 1D list with the new color
                 buttonColors[index] = selectedColor;
 
+                console.log(buttonColors)
+
                 checkLayoutCompletion();  // Check if the layout is complete after each color change
             }
         });
