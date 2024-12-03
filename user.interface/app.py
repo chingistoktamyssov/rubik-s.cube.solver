@@ -60,7 +60,41 @@ def populateCube(buttonColors):
         k += 1
 
     return cube
-    
+
+# simualtes a front turn of the cube (red center)
+def turn(cube, face, direction):
+    faceIndex = {'W': 0, 'G': 1, 'R': 2, 'B': 3, 'O':4, 'Y': 5}
+    centerIndex = faceIndex[face]
+
+    rightIndex = centerIndex+1
+    leftIndex = centerIndex-1
+    topIndex = 0
+    botIndex = 5
+
+    if face == 'O':
+        rightIndex = 1
+    if face == 'G':
+        leftIndex = 4
+    if face == 'Y':
+        topIndex = 2
+        rightIndex = 3
+        leftIndex = 1
+        botIndex = 4
+
+    # for clockwise rotations
+    CenterCW = {0: 6, 1: 3, 2: 0, 3: 7, 5: 1, 6: 8, 7: 5, 8: 2}
+    # for counterclockwise rotations
+    CenterCCW = {6: 0, 3:1, 0:2, 7:3, 1:5, 8: 6, 5: 7, 2:8}
+
+    middleOutsideCW = {0:6, 1:3, 2:0, 3:7, 5:1, 6: 8, 7:5, 8:2}
+    middleOutsideCCW = {6:0, 3:1, 0:2, 7:3, 1:5, 8:6, 5:7, 2:8}
+
+
+    for i in range(9):
+        center
+
+
+    cube[]
 
 # Route to receive the buttonColors list
 @app.route('/submit-colors', methods=['POST'])
