@@ -108,7 +108,6 @@ def turn(cube, face, direction):
     if face == 'Y':
         edgePiece = [[6,7, 8], [6,7, 8], [6,7, 8], [6,7, 8]]
 
-
     middleOutsideCW = {0:6, 1:3, 2:0, 3:7, 5:1, 6: 8, 7:5, 8:2}
     middleOutsideCCW = {6:0, 3:1, 0:2, 7:3, 1:5, 8:6, 5:7, 2:8}
     CWFace = {topIndex: leftIndex, rightIndex: topIndex, botIndex: rightIndex, leftIndex: botIndex}
@@ -118,13 +117,10 @@ def turn(cube, face, direction):
     for i in range(4):
         workingFace = edges[i]
         workingSet = edgePiece[i]
-        print(workingFace)
-        print(workingSet)
     
         if direction == 'clockwise':
             for j in range(3):
                 toChange.append(cube[CWFace[workingFace]][middleOutsideCW[workingSet[j]]])
-                print('dick', cube[CWFace[workingFace]][middleOutsideCW[workingSet[j]]])
         else:
             for j in range(3):
                 toChange.append(cube[CCWFace[workingFace]][middleOutsideCCW[workingSet[j]]])
