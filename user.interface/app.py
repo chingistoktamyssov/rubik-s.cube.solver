@@ -86,15 +86,58 @@ def turn(cube, face, direction):
     # for counterclockwise rotations
     CenterCCW = {6: 0, 3:1, 0:2, 7:3, 1:5, 8: 6, 5: 7, 2:8}
 
+    # center change
+
+    toChange = []
+    if direction == 'clockwise':
+        for i in range(9):
+            if i == 4: continue
+            toChange.append(cube[centerIndex][CenterCW[i]])
+    else:
+        for i in range(9):
+            if i == 4: continue
+            toChange.append(cube[centerIndex][CenterCCW[i]])
+    k = 0
+    for i in range(9):
+        if i == 4: continue
+        cube[centerIndex][i] = toChange[k]
+        k += 1
+    
+    edges = [topIndex, rightIndex, botIndex, leftIndex]
+    edgePiece = [[6,7, 8], [0, 3, 6], [0, 1, 2], [2, 5, 8]]
+    if face == 'Y':
+        edgePiece = [[6,7, 8], [6,7, 8], [6,7, 8], [6,7, 8]]
+
+
     middleOutsideCW = {0:6, 1:3, 2:0, 3:7, 5:1, 6: 8, 7:5, 8:2}
     middleOutsideCCW = {6:0, 3:1, 0:2, 7:3, 1:5, 8:6, 5:7, 2:8}
+    CWFace = {topIndex: leftIndex, rightIndex: topIndex, botIndex: rightIndex, leftIndex: botIndex}
+    CCWFace = {leftIndex: topIndex, topIndex: rightIndex, rightIndex: botIndex, botIndex: leftIndex}
+    # side change
+    toChange = []
+    for i in range(4):
+        workingFace = edges[i]
+        workingSet = edgePiece[i]
+        print(workingFace)
+        print(workingSet)
+    
+        if direction == 'clockwise':
+            for j in range(3):
+                toChange.append(cube[CWFace[workingFace]][middleOutsideCW[workingSet[j]]])
+                print('dick', cube[CWFace[workingFace]][middleOutsideCW[workingSet[j]]])
+        else:
+            for j in range(3):
+                toChange.append(cube[CCWFace[workingFace]][middleOutsideCCW[workingSet[j]]])
 
+    k = 0
+    for i in range(4):
+        workingFace = edges[i]
+        workingSet = edgePiece[i]
+        for j in range(3):
+            cube[workingFace][workingSet[j]] = toChange[k]
+            k += 1    
 
-    for i in range(9):
-        center
-
-
-    cube[]
+    return cube
 
 # Route to receive the buttonColors list
 @app.route('/submit-colors', methods=['POST'])
@@ -109,7 +152,12 @@ def receive_colors():
 
     cube = populateCube(buttonColors)
     # Print out the new list
+
+
     print("Reorganized buttonColors:", cube)
+
+    newCube = turn(cube, 'R', 'clockwise')
+    print('newcube', newCube)
 
 if __name__ == '__main__':
     app.run(debug=True)
