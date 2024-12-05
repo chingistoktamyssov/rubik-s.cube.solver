@@ -61,11 +61,10 @@ def populateCube(buttonColors):
 
     return cube
 
-# simualtes a front turn of the cube (red center)
-def turn(cube, face, direction):
+
+def faceOrienter(face):
     faceIndex = {'W': 0, 'G': 1, 'R': 2, 'B': 3, 'O':4, 'Y': 5}
     centerIndex = faceIndex[face]
-
     rightIndex = centerIndex+1
     leftIndex = centerIndex-1
     topIndex = 0
@@ -80,6 +79,13 @@ def turn(cube, face, direction):
         rightIndex = 3
         leftIndex = 1
         botIndex = 4
+
+    return (centerIndex, topIndex, rightIndex, botIndex, leftIndex)
+
+# simualtes a front turn of the cube (red center)
+def turn(cube, face, direction):
+
+    centerIndex, topIndex, rightIndex, botIndex, leftIndex = faceOrienter(face)
 
     # for clockwise rotations
     CenterCW = {0: 6, 1: 3, 2: 0, 3: 7, 5: 1, 6: 8, 7: 5, 8: 2}
@@ -135,6 +141,33 @@ def turn(cube, face, direction):
 
     return cube
 
+def search(cube, piece, colors):
+    edgeIndexTranslation = {1: 7, 3: 5, 5: 3, 7: 1}
+    cornerIndexTranslation = {0: (2, 6), 2: (0, 8), 6: (8, 0), 8: (2, 6)}
+
+    if piece == 'edge':
+        c1, c2 = colors
+        for face in ('W', 'G', 'R', 'B', 'O', 'Y'):
+            centerIndex, topIndex, rightIndex, botIndex, leftIndex = faceOrienter(face)
+            edgeIndexToFace = {1: topIndex, 3: leftIndex, 5: rightIndex, 7: botIndex}
+            cornerIndexFace = {0: (leftIndex, topIndex), 2: (rightIndex, topIndex), 6: (leftIndex, botIndex), 8: (botIndex, rightIndex)}
+            for index in range(1, 8, 2):
+                for a, b in ((c1, c2), (c2, c1)):
+                    if cube[centerIndex][index] == a and cube[edgeIndexToFace[index]][edgeIndexTranslation[index]] == b:
+                        return ((a, centerIndex, index), (b, edgeIndexToFace[index], edgeIndexTranslation[index]))
+           
+    else: #here, the de facto piece is corner
+        c1, c2, c3 = colors
+        for face in ('W', 'G', 'R', 'B', 'O', 'Y'):
+            centerIndex, topIndex, rightIndex, botIndex, leftIndex = faceOrienter(face)
+            for index in range(0, 9, 2):
+                p1, p2 = cornerIndexTranslation[index]
+                f1, f2 = cornerIndexFace[index]
+
+                for a, b, c in ((c1, c2, c3), (c1, c3, c2), (c2, c1, c3), (c2, c3, c1), (c3, c1, c2), (c3, c2, c1)):
+                    if cube[centerIndex][index] == a and cube[f1][p1] == b and cube[f2][p2] == c:
+                        return ((a, centerIndex, index), (b, f1, p1), (c, f2, p2))
+
 # Route to receive the buttonColors list
 @app.route('/submit-colors', methods=['POST'])
 def receive_colors():
@@ -152,8 +185,12 @@ def receive_colors():
 
     print("Reorganized buttonColors:", cube)
 
-    newCube = turn(cube, 'R', 'clockwise')
-    print('newcube', newCube)
+    cube = turn(cube, 'R', 'clockwise')
+    print('turn1', cube)
+    cube = turn(cube, 'R', 'counterclockwise')
+    print('turn2', cube)
+    print('poop')
+    print(search(cube, 'edge', ('W', 'R')))
 
 if __name__ == '__main__':
     app.run(debug=True)
