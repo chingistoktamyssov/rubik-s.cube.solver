@@ -70,6 +70,11 @@ def faceOrienter(face):
     topIndex = 0
     botIndex = 5
 
+    if face == 'W':
+        topIndex = 4
+        rightIndex = 3
+        botIndex = 2
+        leftIndex = 1
     if face == 'O':
         rightIndex = 1
     if face == 'G':
@@ -110,7 +115,14 @@ def turn(cube, face, direction):
         k += 1
     
     edges = [topIndex, rightIndex, botIndex, leftIndex]
-    edgePiece = [[6,7, 8], [0, 3, 6], [0, 1, 2], [2, 5, 8]]
+    if face == 'G':
+        edgePiece = [[0, 3, 6], [0, 3, 6], [8, 5, 2], [8, 5, 2]]
+    if face == 'R':
+        edgePiece = [[6,7, 8], [0, 3, 6], [2, 1, 0], [8, 5, 2]]
+    if face == 'B':
+        edgePiece = [[8, 5, 2], [0, 3, 6], [8, 5, 2], [8, 5, 2]]
+    if face == 'O':
+        edgePiece = [[0, 1, 2], [0, 1, 2], [6, 7, 8], [8, 5, 2]]
     if face == 'Y':
         edgePiece = [[6,7, 8], [6,7, 8], [6,7, 8], [6,7, 8]]
 
@@ -126,11 +138,11 @@ def turn(cube, face, direction):
     
         if direction == 'clockwise':
             for j in range(3):
+                print(CWFace[workingFace], middleOutsideCW[workingSet[j]], cube[CWFace[workingFace]][middleOutsideCW[workingSet[j]]])
                 toChange.append(cube[CWFace[workingFace]][middleOutsideCW[workingSet[j]]])
         else:
             for j in range(3):
                 toChange.append(cube[CCWFace[workingFace]][middleOutsideCCW[workingSet[j]]])
-
     k = 0
     for i in range(4):
         workingFace = edges[i]
@@ -185,12 +197,18 @@ def receive_colors():
 
     print("Reorganized buttonColors:", cube)
 
-    cube = turn(cube, 'R', 'clockwise')
-    print('turn1', cube)
-    cube = turn(cube, 'R', 'counterclockwise')
+    # cube = turn(cube, 'R', 'clockwise')
+    # print('turn1', cube)
+    cube = turn(cube, 'Y', 'counterclockwise')
     print('turn2', cube)
-    print('poop')
+    cube = turn(cube, 'R', 'clockwise')
+    print('turn3', cube)
+    cube = turn(cube, 'Y', 'counterclockwise')
+    print('turn4', cube)
+
     print(search(cube, 'edge', ('W', 'R')))
+
+    return jsonify({'status': 'success', 'message': 'Colors received and processed'})
 
 if __name__ == '__main__':
     app.run(debug=True)
