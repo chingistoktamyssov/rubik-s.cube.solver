@@ -156,26 +156,24 @@ def turn(cube, face, direction):
 def search(cube, piece, colors):
     edgeIndexTranslation = {1: 7, 3: 5, 5: 3, 7: 1}
     cornerIndexTranslation = {0: (2, 6), 2: (0, 8), 6: (8, 0), 8: (2, 6)}
-
     if piece == 'edge':
         c1, c2 = colors
         for face in ('W', 'G', 'R', 'B', 'O', 'Y'):
             centerIndex, topIndex, rightIndex, botIndex, leftIndex = faceOrienter(face)
             edgeIndexToFace = {1: topIndex, 3: leftIndex, 5: rightIndex, 7: botIndex}
-            cornerIndexFace = {0: (leftIndex, topIndex), 2: (rightIndex, topIndex), 6: (leftIndex, botIndex), 8: (botIndex, rightIndex)}
             for index in range(1, 8, 2):
                 for a, b in ((c1, c2), (c2, c1)):
                     if cube[centerIndex][index] == a and cube[edgeIndexToFace[index]][edgeIndexTranslation[index]] == b:
                         return ((a, centerIndex, index), (b, edgeIndexToFace[index], edgeIndexTranslation[index]))
-           
+
     else: #here, the de facto piece is corner
         c1, c2, c3 = colors
         for face in ('W', 'G', 'R', 'B', 'O', 'Y'):
             centerIndex, topIndex, rightIndex, botIndex, leftIndex = faceOrienter(face)
+            cornerIndexFace = {0: (leftIndex, topIndex), 2: (rightIndex, topIndex), 6: (leftIndex, botIndex), 8: (botIndex, rightIndex)}
             for index in range(0, 9, 2):
                 p1, p2 = cornerIndexTranslation[index]
                 f1, f2 = cornerIndexFace[index]
-
                 for a, b, c in ((c1, c2, c3), (c1, c3, c2), (c2, c1, c3), (c2, c3, c1), (c3, c1, c2), (c3, c2, c1)):
                     if cube[centerIndex][index] == a and cube[f1][p1] == b and cube[f2][p2] == c:
                         return ((a, centerIndex, index), (b, f1, p1), (c, f2, p2))
