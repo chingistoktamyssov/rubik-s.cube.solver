@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory
-from rubik_solver import utils
+import twophase.solver as sv
 
 app = Flask(__name__,
             static_url_path='', 
@@ -38,8 +38,9 @@ def receive_colors():
     cube_state = map_colors_to_notation(button_colors)
         
     # Solve the cube using rubik_solver
-    solution = utils.solve(cube_state)
+    solution = sv.solve(cube_state)
     print(solution)
+
 
     return jsonify({'status': 'success', 'message': 'Colors received and processed'})
 
