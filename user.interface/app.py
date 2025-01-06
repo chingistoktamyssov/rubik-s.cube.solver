@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 import twophase.solver as sv
+import serial
+import time
 
 app = Flask(__name__,
             static_url_path='', 
@@ -58,6 +60,21 @@ def receive_colors():
     # Solve the cube using rubik_solver
     solution = sv.solve(cube_state)
     print(solution)
+
+    ser = serial.Serial('COM3', 9600)
+    time.sleep(2)
+    my_list = solution
+
+    ser.write(str(my_list).encode('utf-8'))
+    ser.write(b'\n')  # Send a newline character
+
+    # Optional: wait for Arduino to respond
+    while ser.in_waiting:
+        response = ser.readline().decode('utf-8').strip()
+        print(f"Arduino says: {response}")
+
+    # Close the serial connection
+    ser.close() 
 
     return jsonify({'status': 'success', 'message': 'Colors received and processed'})
 

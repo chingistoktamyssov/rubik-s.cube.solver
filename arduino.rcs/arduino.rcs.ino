@@ -9,7 +9,68 @@
 #define stepPin5 10
 #define dirPin5 11
 
+void Fturn(int turns) {
+  digitalWrite(dirPin1,HIGH);
+  for(int x = 0; x < 50*turns; x++) {
+    digitalWrite(stepPin1,HIGH);
+    delayMicroseconds(1000);
+    digitalWrite(stepPin1,LOW);
+    delayMicroseconds(1000);
+  }
+}
+
+void Lturn(int turns) {
+  digitalWrite(dirPin2,HIGH);
+
+  for(int x = 0; x < 50*turns; x++) {
+    digitalWrite(stepPin2,HIGH);
+    delayMicroseconds(1000);
+    digitalWrite(stepPin2,LOW);
+    delayMicroseconds(1000);
+  }
+}
+
+void Rturn(int turns) {
+  digitalWrite(dirPin3,HIGH);
+
+  for(int x = 0; x < 50*turns; x++) {
+    digitalWrite(stepPin3,HIGH);
+    delayMicroseconds(1000);
+    digitalWrite(stepPin3,LOW);
+    delayMicroseconds(1000);
+  }
+}
+
+void Bturn(int turns) {
+  digitalWrite(dirPin4,HIGH);
+
+  for(int x = 0; x < 50*turns; x++) {
+    digitalWrite(stepPin4,HIGH);
+    delayMicroseconds(1000);
+    digitalWrite(stepPin4,LOW);
+    delayMicroseconds(1000);
+  }
+}
+
+void Dturn(int turns) {
+  digitalWrite(dirPin5,HIGH);
+
+  for(int x = 0; x < 50*turns; x++) {
+    digitalWrite(stepPin5,HIGH);
+    delayMicroseconds(1000);
+    digitalWrite(stepPin5,LOW);
+    delayMicroseconds(1000);
+  }
+}
+
+
 void setup() {
+  Serial.begin(9600); // Start serial communication at 9600 baud rate
+  while (!Serial) {
+    ; // Wait for the serial port to connect (only needed for some boards like Leonardo)
+  }
+  Serial.println("Serial is ready"); // Add this line for debugging
+
   pinMode(stepPin1,OUTPUT);   
   pinMode(dirPin1,OUTPUT);
   pinMode(stepPin2,OUTPUT);   
@@ -23,92 +84,49 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  if (Serial.available()) {
+    String data = Serial.readStringUntil('\n'); // Read until newline character
+    Serial.println("Received: " + data); // Print the received data
 
+    String result[30]; 
+    int index = 0;
+
+    int startIndex = 0;
+    int endIndex = data.indexOf(' ');
+
+    while (endIndex != -1) {
+      result[index++] = data.substring(startIndex, endIndex);
+      startIndex = endIndex + 1;
+      endIndex = data.indexOf(' ', startIndex);
+    }
+    // Add the last word
+    result[index] = data.substring(startIndex);
+    // Print the result
+    for (int i = 0; i <= index-1; i++) {
+      char motor = result[i][0];
+      char turn = result[i][1];
+      int turns = (int)turn;
+
+      Serial.println(motor);
+
+      if (motor == 'U') {
+        Serial.println('poop');
+      }
+      else if (motor == 'F') {
+        Fturn(turns);
+      }
+      else if (motor == 'R') {
+        Rturn(turns);
+      }
+      else if (motor == 'L') {
+        Lturn(turns);
+      }
+      else if (motor == 'D') {
+        Dturn(turns);
+      }
+      else if (motor == 'B') {
+        Bturn(turns);
+      }
+    }    
+  }
 }
-
-
-// void Fturn(char direction, int turns) {
-//   if (direction == 'C') {
-//     digitalWrite(dirPin1,HIGH);
-//   }
-//   else {
-//     digitalWrite(dirPin1,LOW);
-//   }
-
-//   for(int x = 0; x < 48*turns; x++) {
-//     digitalWrite(stepPin1,HIGH);
-//     delayMicroseconds(1000);
-//     digitalWrite(stepPin1,LOW);
-//     delayMicroseconds(1000);
-//   }
-// }
-
-// // void Lturn(direction, turns) {
-// //   if direction == 'C' {
-// //     digitalWrite(dirPin2,HIGH);
-// //   }
-// //   else {
-// //     digitalWrite(dirPin2,LOW);
-// //   }
-
-// //   for(int x = 0; x < 50*turns; x++) {
-// //     digitalWrite(stepPin2,HIGH);
-// //     delayMicroseconds(1000);
-// //     digitalWrite(stepPin2,LOW);
-// //     delayMicroseconds(1000);
-// //   }
-// // }
-
-// // void Rturn(direction, turns) {
-// //   if direction == 'C' {
-// //     digitalWrite(dirPin3,HIGH);
-// //   }
-// //   else {
-// //     digitalWrite(dirPin3,LOW);
-// //   }
-
-// //   for(int x = 0; x < 50*turns; x++) {
-// //     digitalWrite(stepPin3,HIGH);
-// //     delayMicroseconds(1000);
-// //     digitalWrite(stepPin3,LOW);
-// //     delayMicroseconds(1000);
-// //   }
-// // }
-
-// // void Bturn(direction, turns) {
-// //   if direction == 'C' {
-// //     digitalWrite(dirPin4,HIGH);
-// //   }
-// //   else {
-// //     digitalWrite(dirPin4,LOW);
-// //   }
-
-// //   for(int x = 0; x < 50*turns; x++) {
-// //     digitalWrite(stepPin4,HIGH);
-// //     delayMicroseconds(1000);
-// //     digitalWrite(stepPin4,LOW);
-// //     delayMicroseconds(1000);
-// //   }
-// // }
-
-// // void Dturn(direction, turns) {
-// //   if (direction == 'C') {
-// //     digitalWrite(dirPin5,HIGH);
-// //   }
-// //   else {
-// //     digitalWrite(dirPin5,LOW);
-// //   }
-
-// //   for(int x = 0; x < 50*turns; x++) {
-// //     digitalWrite(stepPin5,HIGH);
-// //     delayMicroseconds(1000);
-// //     digitalWrite(stepPin5,LOW);
-// //     delayMicroseconds(1000);
-// //   }
-// // }
-
-// void loop() {
-//   Fturn('C', 1);
-//   delay(1000);
-// }
