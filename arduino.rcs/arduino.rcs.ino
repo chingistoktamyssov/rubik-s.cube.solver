@@ -63,13 +63,8 @@ void Dturn(int turns) {
   }
 }
 
-
 void setup() {
-  Serial.begin(9600); // Start serial communication at 9600 baud rate
-  while (!Serial) {
-    ; // Wait for the serial port to connect (only needed for some boards like Leonardo)
-  }
-  Serial.println("Serial is ready"); // Add this line for debugging
+  Serial.begin(9600);
 
   pinMode(stepPin1,OUTPUT);   
   pinMode(dirPin1,OUTPUT);
@@ -83,50 +78,53 @@ void setup() {
   pinMode(dirPin5,OUTPUT);
 }
 
+done = False;
 void loop() {
   if (Serial.available()) {
-    String data = Serial.readStringUntil('\n'); // Read until newline character
-    Serial.println("Received: " + data); // Print the received data
+    if (done == False) {
+      String data = Serial.readStringUntil('\n'); // Read until newline character
+      Serial.println("Received: " + data); // Print the received data
 
-    String result[30]; 
-    int index = 0;
+      String result[30]; 
+      int index = 0;
 
-    int startIndex = 0;
-    int endIndex = data.indexOf(' ');
+      int startIndex = 0;
+      int endIndex = data.indexOf(' ');
 
-    while (endIndex != -1) {
-      result[index++] = data.substring(startIndex, endIndex);
-      startIndex = endIndex + 1;
-      endIndex = data.indexOf(' ', startIndex);
+      while (endIndex != -1) {
+        result[index++] = data.substring(startIndex, endIndex);
+        startIndex = endIndex + 1;
+        endIndex = data.indexOf(' ', startIndex);
+      }
+      result[index] = data.substring(startIndex);
+
+      for (int i = 0; i <= index-1; i++) {
+        char motor = result[i][0];
+        char turn = result[i][1];
+        int turns = (int)turn;
+
+        Serial.println(motor);
+
+        if (motor == 'U') {
+          Serial.println('poop');
+        }
+        else if (motor == 'F') {
+          Fturn(turns);
+        }
+        else if (motor == 'R') {
+          Rturn(turns);
+        }
+        else if (motor == 'L') {
+          Lturn(turns);
+        }
+        else if (motor == 'D') {
+          Dturn(turns);
+        }
+        else if (motor == 'B') {
+          Bturn(turns);
+        }
+      }    
+      done = True;
     }
-    // Add the last word
-    result[index] = data.substring(startIndex);
-    // Print the result
-    for (int i = 0; i <= index-1; i++) {
-      char motor = result[i][0];
-      char turn = result[i][1];
-      int turns = (int)turn;
-
-      Serial.println(motor);
-
-      if (motor == 'U') {
-        Serial.println('poop');
-      }
-      else if (motor == 'F') {
-        Fturn(turns);
-      }
-      else if (motor == 'R') {
-        Rturn(turns);
-      }
-      else if (motor == 'L') {
-        Lturn(turns);
-      }
-      else if (motor == 'D') {
-        Dturn(turns);
-      }
-      else if (motor == 'B') {
-        Bturn(turns);
-      }
-    }    
   }
 }
